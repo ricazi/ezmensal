@@ -41,20 +41,54 @@ Manter abastecida a planilha **EZ 2026** (Receita x Despesa) do escritório, men
    - **CIEE**: o pagamento do CIEE registrado no Sicredi normalmente conta para o **mês anterior** ao mês em que aparece no extrato (corte de mês civil). Se aparecer **mais de uma ocorrência de CIEE no mesmo mês**, perguntar ao Ricardo — pode ser encerramento de contrato e nesse caso conta para o mês corrente mesmo.
    - **"SAQUE POR CAIXA (nome)"** no Sicredi = transferência interna banco → caixa (confere com uma entrada de mesmo valor na aba CAIXA no mesmo dia). Não é despesa nem receita, ignorar.
    - **"PG DIULY" / "DIULY DA VEIGA CORREA" / "DIULY ... - PF" / "DIULY ... - SOCIETÁRIO"**: são linhas diferentes da aba DESPESAS (retiradas/pró-labore de sócia, pagas em parcelas ao longo do mês) — somar todas as ocorrências do mês por linha antes de lançar (ex.: duas saídas no Sicredi no mesmo mês para a mesma linha = lançar a soma).
+   - **Mais de uma fatura do mesmo cliente no Asaas no mesmo mês** (ex.: mensalidade atrasada do mês anterior + mensalidade do mês): lançar a **soma** na linha do cliente, no mês em que o dinheiro entrou (regime de caixa).
+   - **Serviço avulso de um cliente** (ex.: alteração de contrato social, abertura, serviço extra cobrado em fatura separada): lançar na **mesma linha do cliente**, somado à mensalidade, se a linha existir. Ex.: DE LA VEGA (R$ 1.300 mensalidade + R$ 1.621 extra = R$ 2.921 em out/2026); JULIANO ELIAS STREDA LTDA (R$ 1.200 de alteração contratual, out/2026).
+   - **Mudança permanente de honorário de cliente**: ajustar o "Previsto" do mês corrente e dos meses seguintes. Ex.: COMPLEXO ESPORTIVO PADEL CENTER 232 passou de R$ 834 para R$ 450 a partir de out/2026.
+   - **Lançamentos agendados no Sicredi com data futura** (ex.: FGTS, DCTFWEB, DAS, LEFISC, ISSQN lançados antecipadamente na planilha de bancos): não lançar na leitura do dia 18 enquanto a data não passou — entram no fechamento do mês.
 8. Gerar a leitura correspondente à data de execução (ver seção "Saída esperada").
+
+## Mapa de despesas (banco/caixa → linha da aba DESPESAS)
+
+Já confirmados pelo Ricardo (lançar direto, sem perguntar de novo):
+
+| Lançamento no Sicredi / Caixa | Linha na aba DESPESAS |
+|---|---|
+| FV COMP | FV COMP |
+| BRPHONIA | BRPHONIA |
+| ABRU TELECOM | ABRU TELECOM - TELEFONE |
+| RGE | ENERGIA ELÉTRICA - RGE |
+| R M ADMINISTRADORA LTDA | ALUGUEL \| RM ADMINISTRADORA LTDA |
+| JB SOFTWARE | JB SOFTWARE |
+| OTTIMIZZA | OTTIMIZZA |
+| GUSTAVO HANSEL & CIA LTDA | GUSTAVO HANSEL GH - E-MAIL E CURSOS |
+| MARQUES E CASSOL LTDA ME | IMPRESSORAS MANUTENÇÃO/TONER - L M MARQUES E CASSOL |
+| PAGO GUARDA (caixa) | LOJA SIMBÓLICA FAROL GUIAS DAS MISSÕES - GUARDA |
+| CLICK CAMISETAS | UNIFORMES - CLICK CAMISETAS (linha criada em out/2026) |
+| FGTS / FGTS DIGITAL / FGTS RESCISÃO (qualquer funcionário) | FGTS |
+| Rescisão de funcionário (ex.: CLAUDIA SMANIOTTO R$ 7.124,98 em out/2026) | linha do próprio funcionário |
+| PG RICARDO (caixa) | RICARDO EMILIO ZIMMERMANN - LUCROS (retirada de lucros) |
+| SEFAZ - GA \<CLIENTE\> (guia paga pelo escritório para cliente) | seção TAXAS E IMPOSTOS DE CLIENTES (A RESSARCIR), linha "\<CLIENTE\> \| GA" — criar se não existir (ex.: TARIFA ZERO \| GA, criada em out/2026; PERFITELHAS \| GA) |
+
+Qualquer fornecedor fora desta tabela: perguntar ao Ricardo antes de lançar.
 
 ## Como editar a planilha (Google Sheets) — método validado
 
-- Usar a extensão **Claude in Chrome** (`mcp__claude-in-chrome__*`), não o browser embutido (`Claude_Browser`) — testado e o browser embutido não consegue commitar edições de teclado no grid do Google Sheets (cliques funcionam, digitação não).
-- **Nunca editar em sequência com "Enter" para descer linha por linha.** A aba RECEITAS tem linhas ocultas/agrupadas (ex.: linha 16), e o Google Sheets pula automaticamente linhas ocultas ao pressionar Enter — isso desalinha silenciosamente uma sequência longa de lançamentos (um valor acaba indo para a linha errada). Já aconteceu e foi revertido a tempo com Ctrl+Z.
-- **Método correto:** para cada célula, usar a **Caixa de Nome** (canto superior esquerdo, atalho Ctrl+J) — clicar nela, digitar o endereço absoluto (ex. `W86`), Enter para pular direto à célula, digitar o valor, Enter para confirmar. Isso é imune a linhas ocultas porque não depende de navegação sequencial.
-- **Sempre conferir depois de cada lote de 10-15 lançamentos**: olhar o total "Realizado" do mês corrente no topo da planilha (linha 2-3, coluna do mês) e comparar com a soma esperada dos valores lançados até ali. Se não bater exatamente, parar e investigar antes de continuar (não confiar apenas no "sucesso" reportado por cada ação individual).
-- Antes de lançar em massa, é útil exportar a aba como CSV via `mcp__Google_Drive__download_file_content` (`exportMimeType=text/csv`) para conferir o número exato da linha de cada cliente e detectar linhas/colunas deslocadas — o Drive MCP só lê, não tem ferramenta de escrita de célula, então a edição em si sempre é feita pelo Chrome.
+- **Método preferido (validado em out/2026): conector Google Sheets** (`mcp__Google_Sheets__*`).
+  - Ler a aba com `get_values` (ex.: `RECEITAS!A1:AC200`) — o resultado inclui linhas ocultas, então a posição de cada linha na lista = número real da linha (linha 1 = primeiro item).
+  - Gravar com `update_values` por **endereço absoluto**, de preferência a coluna inteira do mês em uma única chamada (ex.: `RECEITAS!Y10:Y155` com `null` nas linhas que não devem ser alteradas — `null` pula a célula, `""` apaga). Imune a linhas ocultas.
+  - Mandar números como número (ex.: `1072.29`), nunca como texto com vírgula.
+  - Para linha nova: `insert_dimension` (ROWS, `inheritFromBefore: true`) **dentro** do intervalo das fórmulas de total (assim a SUM do topo se expande sozinha), inserindo de baixo para cima quando forem várias; depois `update_formulas` com nome, fórmulas de TOTAL 2026 (colunas B/C) copiadas da linha vizinha e a coluna R (`=Q<linha>/$Q$3`) na DESPESAS. Atenção: a planilha está em locale pt-BR — em fórmulas, separador de argumentos é `;`.
+  - **Conferir depois de gravar**: reler `A<ini>:A<fim>` (nomes) e a coluna do mês para checar que cada valor caiu no nome certo, e conferir o total "Realizado" do topo (linha 3) contra a soma esperada.
+- **Alternativa (se o conector não estiver disponível): Claude in Chrome** (`mcp__claude-in-chrome__*`), não o browser embutido (`Claude_Browser`) — o browser embutido não consegue commitar edições de teclado no grid do Google Sheets.
+  - **Nunca editar em sequência com "Enter" para descer linha por linha.** A aba RECEITAS tem linhas ocultas/agrupadas (ex.: linha 16), e o Google Sheets pula linhas ocultas ao pressionar Enter — isso desalinha os lançamentos.
+  - Para cada célula, usar a **Caixa de Nome** (Ctrl+J), digitar o endereço absoluto (ex. `W86`), Enter, digitar o valor, Enter.
+  - Conferir o total "Realizado" do topo a cada lote de 10-15 lançamentos.
 
 ## Layout das colunas (confirmado — pode mudar se o Ricardo reorganizar a planilha, reconferir se os totais não baterem)
 
 - **Aba RECEITAS**: cada mês ocupa 2 colunas (Previsto | Realizado), a partir de `E` (Janeiro), com uma coluna extra de "%" depois de Julho (coluna `S`). Sequência: E/F=Jan, G/H=Fev, I/J=Mar, K/L=Abr, M/N=Mai, O/P=Jun, Q/R=Jul, S=(%), T/U=Ago, V/W=Set, X/Y=Out, Z/AA=Nov, AB/AC=Dez. Linhas de cliente começam na linha 10 (linha 9 é o cabeçalho "EMPRESAS CLIENTES").
-- **Aba DESPESAS**: cada mês também ocupa 2 colunas (Previsto | Realizado), mas a partir de `S` (Agosto) — sem a coluna de "%" no meio. Sequência: S/T=Ago, U/V=Set, W/X=Out, Y/Z=Nov, AA/AB=Dez.
+- **Totais do topo da RECEITAS** (linha 2 = Orçado, linha 3 = Realizado): desde 19/10/2026 todos os meses usam `=SUM(<col>10:<col>160)`. Antes os intervalos variavam (começavam na linha 11 ou 12 e alguns paravam na 159), o que deixava de fora a 604 MEDIA HOUSE (linha 10), a ACPM (linha 11) e a última linha (WILLIAN DONEL LOPES). Se inserir linha nova antes da linha 160 o intervalo se expande sozinho; se acrescentar depois da última linha, ajustar as fórmulas.
+- **Aba DESPESAS**: cada mês ocupa 2 colunas (Previsto | Realizado): D/E=Jan, F/G=Fev, H/I=Mar, J/K=Abr, L/M=Mai, N/O=Jun, P/Q=Jul, R=(%), S/T=Ago, U/V=Set, W/X=Out, Y/Z=Nov, AA/AB=Dez. Cabeçalho na linha 7-8; linhas de despesa começam na 12. Totais do topo somam da linha 12 até a última linha da seção A RESSARCIR (108 em out/2026).
 - **Sempre confirmar a coluna do mês corrente antes de lançar em massa** (ex.: olhar o cabeçalho da linha 7-8 da aba), porque o layout pode mudar de um ano para o outro.
 - Linhas novas (cliente novo, fornecedor novo) devem ser inseridas em ordem alfabética dentro da seção correspondente, copiando a formatação/fórmulas de TOTAL 2026 (colunas B/C ou C/D, que costumam ser `=E<linha>+G<linha>+...` somando as colunas Previsto, e o mesmo para Realizado) da linha vizinha.
 
@@ -74,10 +108,18 @@ Nomes do extrato Asaas raramente batem literalmente com o nome na aba RECEITAS. 
 | WEIAND & NAUMANN LTDA | WEIAND E NAUMANN LTDA |
 | JOÃO C. JUNGES / JOELMIR G. WINCK / VANDO K. HARTMANN / VOLMIR F. PASCH LTDA | **LEGVITA** (nome já renomeado na planilha) |
 | RAFAELA MEDINA | RAFAELA MEDINA LTDA |
+| PATRICIA TERESINHA BARBOSA SUCOLOTTI LTDA | PATRÍCIA BARBOSA SUCOLOTTI LTDA |
+| ASSOCIACAO CASA ROTARIA DOS CLUBES DE ROTARY... | ASSOCIACAO CASA ROTARIA CLUBES DE ROTARY DE SANTA ROSA |
+| E R ZANCAN CORRETORA DE SEGUROS LTDA | ER ZANCAN CORRETORA DE SEGUROS LTDA |
+| FABRICIO BATISTA GONCALVES LTDA | FABRÍCIO BATISTA GONÇALVES |
+| MARIA M ZERBIN | MARIA M. ZERBIN |
+| SAMARA GOTTEMS DONATTI | SAMARA GOTTEMS DONATTI (seção PESSOAS FÍSICAS) |
+| VICTORIO JOSE SUCOLOTTI | VICTORIO JOSE SUCOLOTTI (seção PESSOAS FÍSICAS) |
+| ELIAS RIBEIRO FERNANDES | ELIAS RIBEIRO FERNANDES (seção RECEITAS EXTRAS) |
 
 Se aparecer um nome novo sem correspondência óbvia, **perguntar ao Ricardo a linha exata** em vez de adivinhar — ele prefere sempre confirmar lançamentos ambíguos. Uma vez confirmado, adicionar a esta tabela (editar este arquivo e commitar/pedir para o Ricardo atualizar o repositório).
 
-Clientes que recebem **direto no banco/caixa sem passar pelo Asaas**, todo mês (conferir sempre, mas a lista já vista inclui): APADA, JAQUELINE RIBAS DO AMARAL TRENTIN LTDA, LUIZA RIGO MAGALHAES (RURAL), MARCENARIA FITZ LTDA ME, MARIO RITTER, LETÍCIA PARISE CLINICA DE FISIOTERAPIA LTDA, WALTER FISCHER.
+Clientes que recebem **direto no banco/caixa sem passar pelo Asaas**, todo mês (conferir sempre, mas a lista já vista inclui): APADA, JAQUELINE RIBAS DO AMARAL TRENTIN LTDA, LUIZA RIGO MAGALHAES (RURAL), MARCENARIA FITZ LTDA ME, MARIO RITTER, LETÍCIA PARISE CLINICA DE FISIOTERAPIA LTDA, WALTER FISCHER, PAULO FRANCISCO SCHMITT ("PAULO F SCHMITT" no Sicredi), JOSE ALBINO ROHR (caixa), ALINE SERAFIM DALLAGNOL LTDA (caixa — linha 16, que fica oculta), DIOGENES SCHRODER e WURSTER CIA LTDA (Sicredi, normalmente no último dia útil do mês).
 
 ## Parâmetros já definidos (não perguntar de novo)
 

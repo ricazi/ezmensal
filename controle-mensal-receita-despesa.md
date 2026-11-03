@@ -142,11 +142,22 @@ Nomes do extrato Asaas raramente batem literalmente com o nome na aba RECEITAS. 
 | ELIAS RIBEIRO FERNANDES | ELIAS RIBEIRO FERNANDES (seção RECEITAS EXTRAS) |
 | JOEL ALMEIDA DA LUZ LTDA | JOEL ALMEIDA DA SILVA LTDA |
 | LUBA KUDIESS (Sicredi) | LUBA KUDIESS (seção PESSOAS FÍSICAS) |
-| LOCKER (crédito no Sicredi) | LOCKER TECNOLOGIA - CERTIFICADOS DIGITAIS (seção RECEITAS EXTRAS) |
+| LOCKER (crédito no Sicredi) | LOCKER TECNOLOGIA - CERTIFICADOS DIGITAIS (seção RECEITAS EXTRAS) — exceto "LOCKER ... A1 <CLIENTE>", que é repasse do certificado do cliente (tem despesa correspondente): não lançar |
+| STARTSYNC PRODUTORA DE FILMES LTDA (Asaas) | 604 MEDIA HOUSE LTDA |
+| CLAIRTO MARTIN (Sicredi) | CLAIRTO MARTIN (seção RECEITAS EXTRAS, linha criada em nov/2026) |
+| LOJA FAROL / LOJA SIMBÓLICA - RESSARCIMENTO GUARDA (Sicredi) | é receita: somar na linha LOJA SIMBOLICA FAROL GUIA DAS MISSOES N 69 (ressarcimento do guarda que o escritório paga) |
 
 Se aparecer um nome novo sem correspondência óbvia, **perguntar ao Ricardo a linha exata** em vez de adivinhar — ele prefere sempre confirmar lançamentos ambíguos. Uma vez confirmado, adicionar a esta tabela (editar este arquivo e commitar/pedir para o Ricardo atualizar o repositório).
 
 Clientes que recebem **direto no banco/caixa sem passar pelo Asaas**, todo mês (conferir sempre, mas a lista já vista inclui): APADA, JAQUELINE RIBAS DO AMARAL TRENTIN LTDA, LUIZA RIGO MAGALHAES (RURAL), MARCENARIA FITZ LTDA ME, MARIO RITTER, LETÍCIA PARISE CLINICA DE FISIOTERAPIA LTDA, WALTER FISCHER, PAULO FRANCISCO SCHMITT ("PAULO F SCHMITT" no Sicredi), JOSE ALBINO ROHR (caixa), ALINE SERAFIM DALLAGNOL LTDA (caixa — linha 16, que fica oculta), DIOGENES SCHRODER e WURSTER CIA LTDA (Sicredi, normalmente no último dia útil do mês).
+
+## Regras de receita confirmadas na revisão de jan–set/2026 (nov/2026)
+
+- **Regime de caixa sempre:** o que entrou no mês é lançado no mês, mesmo quando é pagamento atrasado do mês anterior. Ex.: Wurster pagou dez/2025 em 06/01 e jan em 30/01, então jan/2026 fica com os dois. O mesmo vale para Diógenes, Walter Fischer etc.
+- **Não procurar no Asaas/Sicredi/Caixa:** TURRA & CIA (recebe no Banrisul, sem NF), RENATA ROTTA (recebida na conta PF do Atemir). Se a planilha tiver valor nessas linhas, está certo.
+- **Ignorar:** INSTITUTO RECONSTRUIR (valor recebido e devolvido); "Escritorio Cont Zimmermann Ltda" como pagador no Asaas (é o próprio escritório).
+- **CELI SERVAT:** pode ter mais de um lançamento sem aparecer no caixa; o Ricardo confirmou jul e ago/2026.
+- Os extratos mensais do Asaas também vêm em PDF. Ler com `pdftotext -raw`, separar as linhas por valor "R$" e conferir se a soma bate com saldo final − saldo inicial.
 
 ## Parâmetros já definidos (não perguntar de novo)
 

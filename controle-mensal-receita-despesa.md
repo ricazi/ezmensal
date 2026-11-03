@@ -38,7 +38,7 @@ Manter abastecida a planilha **EZ 2026** (Receita x Despesa) do escritório, men
    - Despesas operacionais que não vêm do Asaas (aluguel, telecom, software, impostos, retiradas de sócios, etc.). **Sempre perguntar ao Ricardo a linha exata da aba DESPESAS antes de lançar** — os nomes do banco raramente batem literalmente com a descrição da despesa na planilha (ex.: "MARQUES E CASSOL LTDA ME" no banco = linha "IMPRESSORAS MANUTENÇÃO/TONER" na planilha). Se o nome do fornecedor/categoria ainda não existir na aba, perguntar onde criar a linha nova (a convenção é ordem alfabética dentro da seção).
    - Diferenças entre valor previsto e valor realmente recebido (ex.: caixa registrado a menor por erro de digitação) — perguntar ao Ricardo qual valor vale antes de lançar.
 7. Regras já validadas para lançamentos recorrentes específicos (não perguntar de novo, a menos que o Ricardo avise que mudou):
-   - **CIEE**: o pagamento do CIEE registrado no Sicredi normalmente conta para o **mês anterior** ao mês em que aparece no extrato (corte de mês civil). Se aparecer **mais de uma ocorrência de CIEE no mesmo mês**, perguntar ao Ricardo — pode ser encerramento de contrato e nesse caso conta para o mês corrente mesmo.
+   - **CIEE**: não existe mais desde out/2026 (não há mais estagiária). Não procurar nem esperar lançamento de CIEE.
    - **"SAQUE POR CAIXA (nome)"** no Sicredi = transferência interna banco → caixa (confere com uma entrada de mesmo valor na aba CAIXA no mesmo dia). Não é despesa nem receita, ignorar.
    - **"PG DIULY" / "DIULY DA VEIGA CORREA" / "DIULY ... - PF" / "DIULY ... - SOCIETÁRIO"**: são linhas diferentes da aba DESPESAS (retiradas/pró-labore de sócia, pagas em parcelas ao longo do mês) — somar todas as ocorrências do mês por linha antes de lançar (ex.: duas saídas no Sicredi no mesmo mês para a mesma linha = lançar a soma).
    - **Mais de uma fatura do mesmo cliente no Asaas no mesmo mês** (ex.: mensalidade atrasada do mês anterior + mensalidade do mês): lançar a **soma** na linha do cliente, no mês em que o dinheiro entrou (regime de caixa).
@@ -46,6 +46,16 @@ Manter abastecida a planilha **EZ 2026** (Receita x Despesa) do escritório, men
    - **Mudança permanente de honorário de cliente**: ajustar o "Previsto" do mês corrente e dos meses seguintes. Ex.: COMPLEXO ESPORTIVO PADEL CENTER 232 passou de R$ 834 para R$ 450 a partir de out/2026.
    - **Lançamentos agendados no Sicredi com data futura** (ex.: FGTS, DCTFWEB, DAS, LEFISC, ISSQN lançados antecipadamente na planilha de bancos): não lançar na leitura do dia 18 enquanto a data não passou — entram no fechamento do mês.
 8. Gerar a leitura correspondente à data de execução (ver seção "Saída esperada").
+
+## Despesas de cartão (aba RICARDO da planilha "ESCRITÓRIO - Bancos | Caixa")
+
+- As despesas do escritório pagas no cartão do Ricardo ficam na aba **RICARDO** (conta de acertos). No bloco do mês, a linha "LUCROS MMAAAA" (coluna C) é a retirada do mês. Cada despesa de cartão (coluna C) aumenta o saldo; o PG RICARDO do caixa, o PRÓ-LABORE e o "LUCROS" pago no Sicredi (coluna D) baixam o saldo.
+- O "LUCROS" pago no Sicredi no fim do mês **já inclui o reembolso das despesas de cartão**. No fechamento:
+  1. lançar cada despesa de cartão na linha própria da aba DESPESAS;
+  2. lançar em RICARDO EMILIO ZIMMERMANN - LUCROS = (LUCROS pago no Sicredi + PG RICARDO do caixa) − (despesas de cartão lançadas). Na prática = a retirada do mês ("LUCROS MMAAAA") − PG RICARDO + PG RICARDO.
+- Itens da aba RICARDO que **não** são despesa do escritório (ex.: POLIVALENTE em out/2026) ficam como retirada de lucros, ou seja, não são descontados da linha de LUCROS.
+- Mapeamentos de cartão já confirmados: CLAUDE / CLAUDE ANTHROPIC → CLAUDE; LOVABLE → LOVABLE (somar todas do mês); CHATGPT → CHATGPT (linha criada em out/2026); COFFEE MAIS → CAFÉ - COFFEE MAIS (linha criada em out/2026); CAFÉ MERCADO LIVRE → MERCADO LIVRE - CAFÉ; POLIVALENTE → retirada de lucros (não lançar como despesa).
+- Out/2026: retirada de R$ 10.600, cartão R$ 639,94 (Claude 114,47 + Lovable 213,52 + ChatGPT 105,52 + Coffee Mais 206,43), Polivalente R$ 813,54 como lucro, e linha de LUCROS = R$ 9.970,85.
 
 ## Mapa de despesas (banco/caixa → linha da aba DESPESAS)
 
@@ -102,7 +112,7 @@ Qualquer fornecedor fora desta tabela: perguntar ao Ricardo antes de lançar.
 
 - **Aba RECEITAS**: cada mês ocupa 2 colunas (Previsto | Realizado), a partir de `E` (Janeiro), com uma coluna extra de "%" depois de Julho (coluna `S`). Sequência: E/F=Jan, G/H=Fev, I/J=Mar, K/L=Abr, M/N=Mai, O/P=Jun, Q/R=Jul, S=(%), T/U=Ago, V/W=Set, X/Y=Out, Z/AA=Nov, AB/AC=Dez. Linhas de cliente começam na linha 10 (linha 9 é o cabeçalho "EMPRESAS CLIENTES").
 - **Totais do topo da RECEITAS** (linha 2 = Orçado, linha 3 = Realizado): desde 19/10/2026 todos os meses usam `=SUM(<col>10:<col>160)`. Antes os intervalos variavam (começavam na linha 11 ou 12 e alguns paravam na 159), o que deixava de fora a 604 MEDIA HOUSE (linha 10), a ACPM (linha 11) e a última linha (WILLIAN DONEL LOPES). Se inserir linha nova antes da linha 160 o intervalo se expande sozinho; se acrescentar depois da última linha, ajustar as fórmulas.
-- **Aba DESPESAS**: cada mês ocupa 2 colunas (Previsto | Realizado): D/E=Jan, F/G=Fev, H/I=Mar, J/K=Abr, L/M=Mai, N/O=Jun, P/Q=Jul, R=(%), S/T=Ago, U/V=Set, W/X=Out, Y/Z=Nov, AA/AB=Dez. Cabeçalho na linha 7-8; linhas de despesa começam na 12. Totais do topo somam da linha 12 até a última linha da seção A RESSARCIR (110 em nov/2026, depois das 2 linhas criadas no fechamento de out/2026).
+- **Aba DESPESAS**: cada mês ocupa 2 colunas (Previsto | Realizado): D/E=Jan, F/G=Fev, H/I=Mar, J/K=Abr, L/M=Mai, N/O=Jun, P/Q=Jul, R=(%), S/T=Ago, U/V=Set, W/X=Out, Y/Z=Nov, AA/AB=Dez. Cabeçalho na linha 7-8; linhas de despesa começam na 12. Totais do topo somam da linha 12 até a última linha da seção A RESSARCIR (112 em nov/2026, depois das 4 linhas criadas no fechamento de out/2026).
 - **Sempre confirmar a coluna do mês corrente antes de lançar em massa** (ex.: olhar o cabeçalho da linha 7-8 da aba), porque o layout pode mudar de um ano para o outro.
 - Linhas novas (cliente novo, fornecedor novo) devem ser inseridas em ordem alfabética dentro da seção correspondente, copiando a formatação/fórmulas de TOTAL 2026 (colunas B/C ou C/D, que costumam ser `=E<linha>+G<linha>+...` somando as colunas Previsto, e o mesmo para Realizado) da linha vizinha.
 
@@ -143,7 +153,7 @@ Clientes que recebem **direto no banco/caixa sem passar pelo Asaas**, todo mês 
 - **Meta de superávit:** R$ 84.000,00/mês (baseado no ponto de equilíbrio informado pelo Ricardo — não usar o valor calculado por fórmula na planilha caso ele divirja).
 - **Taxas Asaas** (tarifas da própria plataforma): ignorar durante o lançamento do período aberto; são lançadas de uma vez no fechamento do mês (início do mês seguinte).
 - **Transferências Pix Asaas → Sicredi:** transferência interna, não é receita nem despesa.
-- **Corte do período:** mês civil (dia 1º ao último dia do mês). Exceção: o pagamento do CIEE no Sicredi normalmente conta para o mês anterior (ver regra específica acima).
+- **Corte do período:** mês civil (dia 1º ao último dia do mês).
 - **Lançamentos ambíguos:** sempre confirmar com o Ricardo antes de lançar — ele prefere isso a qualquer suposição automática, inclusive quando o nome do banco não bate exatamente com a planilha.
 
 ## Agenda (Google Calendar)

@@ -68,6 +68,20 @@ Já confirmados pelo Ricardo (lançar direto, sem perguntar de novo):
 | Rescisão de funcionário (ex.: CLAUDIA SMANIOTTO R$ 7.124,98 em out/2026) | linha do próprio funcionário |
 | PG RICARDO (caixa) | RICARDO EMILIO ZIMMERMANN - LUCROS (retirada de lucros) |
 | SEFAZ - GA \<CLIENTE\> (guia paga pelo escritório para cliente) | seção TAXAS E IMPOSTOS DE CLIENTES (A RESSARCIR), linha "\<CLIENTE\> \| GA" — criar se não existir (ex.: TARIFA ZERO \| GA, criada em out/2026; PERFITELHAS \| GA) |
+| Folha no Sicredi (fim do mês): ADRIANO, ANDREIA, CRISTIANE, DIULY DA VEIGA CORREA, RAQUEL, RICARDO \| PRÓ-LABORE, RICARDO \| LUCROS, ATEMIR \| LUCROS | linha de mesmo nome (RICARDO \| LUCROS soma com o PG RICARDO do caixa) |
+| CAJU \| VALE-ALIMENTAÇÃO | VALE ALIMENTAÇÃO - CAJU |
+| DCTFWEB | INSS E IRRF |
+| DAS SIMPLES NACIONAL | SIMPLES NACIONAL |
+| ISSQN | ISSQN FIXO MENSAL |
+| LEFISC | LEFISC |
+| LEFISC - CURSO | CURSOS / DIVERSOS |
+| ALLIANZ | ALLIANZ \| ATEMIR |
+| APAE / PAGO APAE (caixa) | APAE |
+| PG DIULY (caixa) | DIULY DA VEIGA CORREA - SOCIETÁRIO (confirmado em out/2026) |
+| CRISTIANE ... (EMPRÉSTIMO) | CRISTIANE MAROSTEGA - EMPRÉSTIMO (linha criada em out/2026) |
+| PAGO RISKY RABISKY (caixa) | MATERIAL DE EXPEDIENTE - RISKY RABISKY (linha criada em out/2026) |
+| Taxas do Asaas (boleto/Pix, mensageria, NFS-e, WhatsApp, voz, menos os "Desconto na taxa") | ASAAS \| TAXAS BANCÁRIAS — valor líquido do mês, lançado no fechamento |
+| "Estorno de transação via Pix" no Asaas | devolução de um Pix interno Asaas → Sicredi; ignorar |
 
 Qualquer fornecedor fora desta tabela: perguntar ao Ricardo antes de lançar.
 
@@ -88,7 +102,7 @@ Qualquer fornecedor fora desta tabela: perguntar ao Ricardo antes de lançar.
 
 - **Aba RECEITAS**: cada mês ocupa 2 colunas (Previsto | Realizado), a partir de `E` (Janeiro), com uma coluna extra de "%" depois de Julho (coluna `S`). Sequência: E/F=Jan, G/H=Fev, I/J=Mar, K/L=Abr, M/N=Mai, O/P=Jun, Q/R=Jul, S=(%), T/U=Ago, V/W=Set, X/Y=Out, Z/AA=Nov, AB/AC=Dez. Linhas de cliente começam na linha 10 (linha 9 é o cabeçalho "EMPRESAS CLIENTES").
 - **Totais do topo da RECEITAS** (linha 2 = Orçado, linha 3 = Realizado): desde 19/10/2026 todos os meses usam `=SUM(<col>10:<col>160)`. Antes os intervalos variavam (começavam na linha 11 ou 12 e alguns paravam na 159), o que deixava de fora a 604 MEDIA HOUSE (linha 10), a ACPM (linha 11) e a última linha (WILLIAN DONEL LOPES). Se inserir linha nova antes da linha 160 o intervalo se expande sozinho; se acrescentar depois da última linha, ajustar as fórmulas.
-- **Aba DESPESAS**: cada mês ocupa 2 colunas (Previsto | Realizado): D/E=Jan, F/G=Fev, H/I=Mar, J/K=Abr, L/M=Mai, N/O=Jun, P/Q=Jul, R=(%), S/T=Ago, U/V=Set, W/X=Out, Y/Z=Nov, AA/AB=Dez. Cabeçalho na linha 7-8; linhas de despesa começam na 12. Totais do topo somam da linha 12 até a última linha da seção A RESSARCIR (108 em out/2026).
+- **Aba DESPESAS**: cada mês ocupa 2 colunas (Previsto | Realizado): D/E=Jan, F/G=Fev, H/I=Mar, J/K=Abr, L/M=Mai, N/O=Jun, P/Q=Jul, R=(%), S/T=Ago, U/V=Set, W/X=Out, Y/Z=Nov, AA/AB=Dez. Cabeçalho na linha 7-8; linhas de despesa começam na 12. Totais do topo somam da linha 12 até a última linha da seção A RESSARCIR (110 em nov/2026, depois das 2 linhas criadas no fechamento de out/2026).
 - **Sempre confirmar a coluna do mês corrente antes de lançar em massa** (ex.: olhar o cabeçalho da linha 7-8 da aba), porque o layout pode mudar de um ano para o outro.
 - Linhas novas (cliente novo, fornecedor novo) devem ser inseridas em ordem alfabética dentro da seção correspondente, copiando a formatação/fórmulas de TOTAL 2026 (colunas B/C ou C/D, que costumam ser `=E<linha>+G<linha>+...` somando as colunas Previsto, e o mesmo para Realizado) da linha vizinha.
 
@@ -116,6 +130,9 @@ Nomes do extrato Asaas raramente batem literalmente com o nome na aba RECEITAS. 
 | SAMARA GOTTEMS DONATTI | SAMARA GOTTEMS DONATTI (seção PESSOAS FÍSICAS) |
 | VICTORIO JOSE SUCOLOTTI | VICTORIO JOSE SUCOLOTTI (seção PESSOAS FÍSICAS) |
 | ELIAS RIBEIRO FERNANDES | ELIAS RIBEIRO FERNANDES (seção RECEITAS EXTRAS) |
+| JOEL ALMEIDA DA LUZ LTDA | JOEL ALMEIDA DA SILVA LTDA |
+| LUBA KUDIESS (Sicredi) | LUBA KUDIESS (seção PESSOAS FÍSICAS) |
+| LOCKER (crédito no Sicredi) | LOCKER TECNOLOGIA - CERTIFICADOS DIGITAIS (seção RECEITAS EXTRAS) |
 
 Se aparecer um nome novo sem correspondência óbvia, **perguntar ao Ricardo a linha exata** em vez de adivinhar — ele prefere sempre confirmar lançamentos ambíguos. Uma vez confirmado, adicionar a esta tabela (editar este arquivo e commitar/pedir para o Ricardo atualizar o repositório).
 
